@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("MYSQL_URL")
+}
+
+model User {
+  ID          String       @id @default(cuid())
+  name        String
+  email       String       @unique
+  password    String
+  reservation Reservation?
+  role        Role         @default(USER)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model Movie {
+  ID             String     @id @default(cuid())
+  name           String
+  description    String?
+  duration       Int
+  genres         Genre[]
+  director       String
+  releaseDate    DateTime
+  posterImageURL String?
+  showTimes      ShowTime[] @relation("MovieShowTimes")
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  @@unique([name, releaseDate, director])
+}
+
+model Genre {
+  ID     String  @id @default(cuid())
+  name   String
+  movies Movie[]
+}
+
+model ShowTime {
+  ID             String        @id @default(cuid())
+  movie          Movie         @relation(fields: [movieID], references: [ID], name: "MovieShowTimes", onDelete: Cascade)
+  movieID        String
+  startTime      DateTime
+  endTime        DateTime
+  reservation    Reservation[]
+  seatsAvailable Int
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+}
+
+model Reservation {
+  ID         String   @id @default(cuid())
+  user       User     @relation(fields: [userID], references: [ID], onDelete: Cascade)
+  userID     String   @unique
+  showtime   ShowTime @relation(fields: [showtimeID], references: [ID], onDelete: Cascade)
+  showtimeID String
+  seats      Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([userID, showtimeID])
+}
