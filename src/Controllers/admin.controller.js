@@ -30,6 +30,9 @@ export const addMovie = async (req, res, next) => {
 			posterImageURL,
 		} = req.body;
 
+		// console.log(req.body);
+		// process.exit(0);
+
 		const existingMovie = await prisma.movie.findFirst({
 			where: {
 				name,
@@ -67,7 +70,7 @@ export const addMovie = async (req, res, next) => {
 				data: {
 					name,
 					description: description || null,
-					duration,
+					duration: parseInt(duration),
 					genres: {
 						connect: genreConnections,
 					},
@@ -131,7 +134,7 @@ export const updateMovie = async (req, res, next) => {
 				data: {
 					name,
 					description: description || null,
-					duration,
+					duration: parseInt(duration),
 					genres: {
 						connect: genreConnections,
 					},

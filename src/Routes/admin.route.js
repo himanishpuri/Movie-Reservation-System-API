@@ -14,6 +14,7 @@ import {
 	authenticateMovieDetails,
 	isAdmin,
 } from "../Middlewares/admin.middleware.js";
+import { uploadImageMiddleware } from "../util/imgUpload.js";
 
 // get list of all reservations
 // add a movie
@@ -27,8 +28,16 @@ import {
 router.use(isAdmin);
 
 router.get("/reservations", getAllReservations);
-router.post("/movies", authenticateMovieDetails, addMovie);
-router.route("/movies/:movieID").put(updateMovie).delete(deleteMovie);
+router.post(
+	"/movies",
+	uploadImageMiddleware,
+	authenticateMovieDetails,
+	addMovie,
+);
+router
+	.route("/movies/:movieID")
+	.put(uploadImageMiddleware, updateMovie)
+	.delete(deleteMovie);
 router.post("/movies/:movieID/showtime", addShowtime);
 router
 	.route("/movies/:movieID/showtime/:showtimeID")
