@@ -70,7 +70,7 @@ export const addMovie = async (req, res, next) => {
 				data: {
 					name,
 					description: description || null,
-					duration: parseInt(duration),
+					duration,
 					genres: {
 						connect: genreConnections,
 					},
@@ -134,7 +134,7 @@ export const updateMovie = async (req, res, next) => {
 				data: {
 					name,
 					description: description || null,
-					duration: parseInt(duration),
+					duration,
 					genres: {
 						connect: genreConnections,
 					},

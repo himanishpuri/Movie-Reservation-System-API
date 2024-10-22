@@ -47,7 +47,7 @@ model Movie {
 
 model Genre {
   ID     String  @id @default(cuid())
-  name   String
+  name   String  @unique
   movies Movie[]
 }
 

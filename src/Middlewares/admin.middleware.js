@@ -30,6 +30,19 @@ export const isAdmin = async (req, res, next) => {
 };
 
 export const authenticateMovieDetails = async (req, res, next) => {
+	// Trim and sanitize input fields
+	const sanitizeInput = (input) => input?.trim();
+
+	req.body = {
+		name: sanitizeInput(req.body?.name),
+		description: sanitizeInput(req.body?.description),
+		director: sanitizeInput(req.body?.director),
+		posterImageURL: sanitizeInput(req.body?.posterImageURL),
+		genres: req.body?.genres?.map(sanitizeInput),
+		duration: parseInt(req.body?.duration, 10),
+		posterImageURL: sanitizeInput(req.body?.posterImageURL),
+		releaseDate: new Date(req.body?.releaseDate),
+	};
 	try {
 		const schema = joi.object({
 			name: joi.string().required(),

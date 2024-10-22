@@ -36,7 +36,7 @@ router.post(
 );
 router
 	.route("/movies/:movieID")
-	.put(uploadImageMiddleware, updateMovie)
+	.put(uploadImageMiddleware, authenticateMovieDetails, updateMovie)
 	.delete(deleteMovie);
 router.post("/movies/:movieID/showtime", addShowtime);
 router

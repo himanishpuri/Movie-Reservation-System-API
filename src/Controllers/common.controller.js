@@ -1,7 +1,7 @@
 import prisma from "../util/prismaClient.js";
 
 export const getMovies = async (req, res, next) => {
-	const { limit, page } = req.params;
+	const { limit, page } = req.query;
 	const skip = (page - 1) * limit;
 
 	try {
@@ -57,6 +57,28 @@ export const getSeats = async (req, res, next) => {
 		}
 
 		res.status(200).json({ seatsAvailable: showTime.seatsAvailable });
+	} catch (error) {
+		next(error);
+	}
+};
+
+export const getMoviesByGenre = async (req, res, next) => {
+	const { genre: genreName } = req.query;
+
+	// console.log(typeof genreName);
+	// process.exit(0);
+
+	try {
+		const genre = await prisma.genre.findUnique({
+			where: {
+				name: "Sci-Fi",
+			},
+			include: {
+				movies: true,
+			},
+		});
+
+		res.status(200).json(genre?.movies);
 	} catch (error) {
 		next(error);
 	}
