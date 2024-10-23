@@ -18,6 +18,10 @@ This API provides administrative functionalities to manage movies, showtimes, us
 -  **Joi**: Schema description language and data validator for JavaScript.
 -  **bcrypt:** password hash
 
+## All Endpoints
+
+[ENDPOINT.MD](https://github.com/himanishpuri/Movie-Reservation-System-API/blob/main/ENDPOINT.MD)
+
 ## **Installation**
 
 1. **Clone the Repository**
