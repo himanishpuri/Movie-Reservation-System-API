@@ -27,7 +27,7 @@ This API provides administrative functionalities to manage movies, showtimes, us
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/himanishpuri/repo-name.git
+   git clone https://github.com/himanishpuri/Movie-Reservation-System-API.git
    cd repo-name
    ```
 
