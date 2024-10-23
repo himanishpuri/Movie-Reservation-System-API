@@ -12,7 +12,7 @@ export const getAllReservations = async (req, res, next) => {
 				user: true,
 			},
 		});
-		res.json(reservations);
+		res.status(200).json(reservations);
 	} catch (error) {
 		next(error);
 	}

@@ -10,6 +10,9 @@ export const getReservations = async (req, res, next) => {
 				showtime: true,
 			},
 		});
+		if (!reservations) {
+			return next(new Error("No reservations"));
+		}
 		res.status(200).json(reservations);
 	} catch (error) {
 		next(new Error(error));
