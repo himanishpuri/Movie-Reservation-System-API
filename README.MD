@@ -4,10 +4,6 @@
 
 ---
 
-## **Overview**
-
-This API provides administrative functionalities to manage movies, showtimes, user roles, and reservations for a movie management system. All routes are secured and accessible only to users with an `ADMIN` role.
-
 ## **Technologies Used**
 
 -  **Node.js**: JavaScript runtime for building server-side applications.
