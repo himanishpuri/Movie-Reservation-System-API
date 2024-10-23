@@ -6,7 +6,7 @@ const globalErrorHandler = (err, req, res, next) => {
 
 	res.status(statusCode).json({
 		status,
-		message: err.message,
+		error: err.message,
 		stack: process.env.NODE_ENV === "production" ? null : err.stack,
 	});
 };
